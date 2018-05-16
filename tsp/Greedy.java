@@ -10,12 +10,13 @@ public class Greedy extends Algorithm {
     private double afstand;
     private long Rekentijd;
 
-    public Greedy(ArrayList<Product> P) {
+    public Greedy() {
         super("Greedy");
-        Products = P;
     }
 
-    public Result BerekenRoute() {
+    public Result BerekenRoute(ArrayList<Product> P) {
+        Products = (ArrayList<Product>)P.clone();
+        Route.clear();
         long startTime = System.nanoTime();
         int x;
         int y;
@@ -43,12 +44,13 @@ public class Greedy extends Algorithm {
         klein = 20;
         double lijn;
         int aantalRoute = 1;
+        int aantal = 0;
         for (int i = 0; i < Products.size();) {
-            for (Product temp : Products) {
+            for (Product temp : Products) {                    
                     x = temp.getX();
                     y = temp.getY();
-                    int x1 = Route.get(Route.size()-1).getX();
-                    int y1 = Route.get(Route.size()-1).getY();
+                    int x1 = Route.get(aantal).getX();
+                    int y1 = Route.get(aantal).getY();
                     int difx = Math.abs(x - x1);
                     int dify = Math.abs(y - y1);
                     if (difx == 0 || dify == 0) {
@@ -56,7 +58,6 @@ public class Greedy extends Algorithm {
                     } else {
                         lijn = Math.sqrt((difx * difx) + (dify * dify));
                     }
-                    //System.out.println(lijn);
                     if (lijn < klein) {
                         klein = lijn;
                         if (Route.size() == aantalRoute) {
@@ -66,16 +67,18 @@ public class Greedy extends Algorithm {
                             lengte = lijn;
                             Route.set(aantalRoute, temp);
                         }
-                        //System.out.println(Route);
                     }
                 
             }
-            //System.out.println("end");
             afstand = afstand + lengte;
             klein = 20;
             Products.remove(Route.get(aantalRoute));
-            aantalRoute++;    
+            aantalRoute++;
+            aantal++;
         }
+        x = Route.get(Route.size()-1).getX();
+        y = Route.get(Route.size()-1).getY();
+        afstand = afstand + Math.sqrt((x * x) + (y * y));
         Rekentijd = System.nanoTime() - startTime;
         return new Result(Route, afstand, Rekentijd);
     }

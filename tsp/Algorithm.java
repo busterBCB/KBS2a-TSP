@@ -4,7 +4,7 @@ package tsp;
 import java.util.ArrayList;
 
 
-public class Algorithm {
+public abstract class Algorithm implements RunnableAlgorithm{
     private String Name;
     
     public Algorithm(String Name){

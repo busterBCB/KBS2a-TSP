@@ -26,6 +26,12 @@ public class Result {
     public long getRekentijd() {
         return Rekentijd;
     }
+    
+    public void clearRoute(){
+        Route.clear();
+        Afstand = 0;
+        Rekentijd = 0;
+    }
 
     @Override
     public String toString() {
