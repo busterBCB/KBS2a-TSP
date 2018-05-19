@@ -100,7 +100,7 @@ public class LimitedBruteForce extends Algorithm{
             lijn = 0;
         }
         Rekentijd = System.nanoTime() - startTime;
-        return new Result(Route, afstand, Rekentijd);
+        return new Result(Route, afstand, Rekentijd, "LimitedBruteForce");
     }
 
     public ArrayList<ArrayList<Product>> getRoutes() {
