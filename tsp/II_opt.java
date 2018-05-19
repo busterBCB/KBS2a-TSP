@@ -66,6 +66,6 @@ public class II_opt extends Algorithm{
             }
         }
         Rekentijd = System.nanoTime() - startTime;
-        return new Result(Route, afstand, Rekentijd);
+        return new Result((ArrayList<Product>)Route.clone(), afstand, Rekentijd, "2-opt");
     }
 }
