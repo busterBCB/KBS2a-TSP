@@ -1,18 +1,23 @@
-
 package tsp;
 
 import java.util.ArrayList;
 
-
 public class Result {
+
     ArrayList<Product> Route;
     double Afstand;
     long Rekentijd;
+    String Algorithm;
 
-    public Result(ArrayList<Product> Route, double Afstand, long Rekentijd) {
+    public Result(ArrayList<Product> Route, double Afstand, long Rekentijd, String Algorithm) {
         this.Route = Route;
         this.Afstand = Afstand;
         this.Rekentijd = Rekentijd;
+        this.Algorithm = Algorithm;
+    }
+
+    public Result() {
+
     }
 
     public ArrayList<Product> getRoute() {
@@ -26,8 +31,12 @@ public class Result {
     public long getRekentijd() {
         return Rekentijd;
     }
-    
-    public void clearRoute(){
+
+    public String getAlgorithm() {
+        return Algorithm;
+    }
+
+    public void clearRoute() {
         Route.clear();
         Afstand = 0;
         Rekentijd = 0;
@@ -35,8 +44,7 @@ public class Result {
 
     @Override
     public String toString() {
-        return "Result{" + "Route=" + Route + ", Afstand=" + Afstand + ", Rekentijd=" + Rekentijd + '}';
+        return "Result{" + "Algorithm=" + Algorithm + ", Route=" + Route + ", Afstand=" + Afstand + ", Rekentijd=" + Rekentijd + '}';
     }
-    
-    
+
 }
