@@ -58,6 +58,7 @@ public class II_opt extends Algorithm {
         long startTime = System.nanoTime();
         // afstand berekenen van gekregen lijst
         afstand = BerekenAfstand(Products);
+        int aantal = 0;
         for (int i = 0; i < Products.size() - 1; i++) {
             for (int k = i + 1; k < Products.size() - 1; k++) {
                 // punten binnen de route omwisselen 
@@ -71,10 +72,16 @@ public class II_opt extends Algorithm {
                 if (Nieuwe_Afstand < afstand) {
                     Route = (ArrayList<Product>) Nieuwe_Route.clone();
                     afstand = Nieuwe_Afstand;
+                    aantal++;
                 }
             }
         }
+        // wanner geen een afstand groter is word de default lijst genomen
+        if(aantal == 0){
+            Route = (ArrayList<Product>)Products.clone();
+        }
         Rekentijd = System.nanoTime() - startTime;
+        System.out.println("Route 2opt" + Route);
         return new Result((ArrayList<Product>) Route.clone(), afstand, Rekentijd, "2-opt");
     }
 }
