@@ -19,7 +19,7 @@ public class Tekenpanel extends JPanel {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setStroke(new BasicStroke(3));
-        
+
         //magazijn maken
         g.setColor(Color.black);
         g.fillRect(0, 0, 1, 300);

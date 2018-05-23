@@ -77,11 +77,10 @@ public class II_opt extends Algorithm {
             }
         }
         // wanner geen een afstand groter is word de default lijst genomen
-        if(aantal == 0){
-            Route = (ArrayList<Product>)Products.clone();
+        if (aantal == 0) {
+            Route = (ArrayList<Product>) Products.clone();
         }
         Rekentijd = System.nanoTime() - startTime;
-        System.out.println("Route 2opt" + Route);
         return new Result((ArrayList<Product>) Route.clone(), afstand, Rekentijd, "2-opt");
     }
 }

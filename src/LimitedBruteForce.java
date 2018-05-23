@@ -1,7 +1,6 @@
 package TSP1;
 
 import java.util.ArrayList;
-import static java.util.Collections.copy;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class LimitedBruteForce extends Algorithm {

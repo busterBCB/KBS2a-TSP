@@ -6,6 +6,5 @@ public class Test {
 
         Hoofdscherm scherm = new Hoofdscherm();
         scherm.setVisible(true);
-
     }
 }

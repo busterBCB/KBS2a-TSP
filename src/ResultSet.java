@@ -15,7 +15,7 @@ public class ResultSet {
     }
 
     public Result getBest() {
-        // get beste ronde
+        // get beste route
         double Afstand = 0;
         double ShortestDistance = 1000;
         Result BestResult = new Result();
@@ -31,6 +31,21 @@ public class ResultSet {
         return BestResult;
     }
 
+    public Result getBest(int ronde) {
+        // get beste route van bepaalde ronde
+        double Afstand = 0;
+        double ShortestDistance = 1000;
+        Result BestResult = new Result();
+        for (Result temp : ResultSet.get(ronde)) {
+            Afstand = temp.getAfstand();
+            if (Afstand < ShortestDistance) {
+                ShortestDistance = Afstand;
+                BestResult = temp;
+            }
+        }
+        return BestResult;
+    }
+
     public ArrayList<Result> getAlgorithms() {
         return ResultSet.get(0);
 
@@ -38,6 +53,26 @@ public class ResultSet {
 
     public int getRondes() {
         return ResultSet.size();
+    }
+
+    public int getWins(String algoritme) {
+        int wins = 0;
+        for (ArrayList<Result> temp : ResultSet) {
+            double afstand = 100;
+            int aantal = 0;
+            int aantal1 = 0;
+            for (Result temp2 : temp) {
+                if (temp2.getAfstand() < afstand) {
+                    afstand = temp2.getAfstand();
+                    aantal1 = aantal;
+                }
+                aantal++;
+            }
+            if (algoritme == temp.get(aantal1).getAlgorithm()) {
+                wins++;
+            }
+        }
+        return wins;
     }
 
     public int getBestRonde() {
@@ -81,7 +116,7 @@ public class ResultSet {
             aantal++;
         }
         System.out.println("");
-        return "ResultSet{" + "ResultSet=" + ResultSet + '}';
+        return "ResultSet{" + "ResultSet=" + ResultSet + '}' + "\n\n";
     }
 
 }

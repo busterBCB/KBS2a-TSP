@@ -2,16 +2,17 @@ package TSP1;
 
 import java.util.ArrayList;
 
-public class ReverseDefault extends Algorithm{
+public class ReverseDefault extends Algorithm {
+
     private ArrayList<Product> Products;
     public ArrayList<Product> Route = new ArrayList<Product>(25);
     private double afstand;
     private long Rekentijd;
-    
-    public ReverseDefault(){
+
+    public ReverseDefault() {
         super("Reverse");
     }
-    
+
     public double BerekenAfstand(ArrayList<Product> Products) {
         // afstand berekenen van de route
         int x;
@@ -46,26 +47,26 @@ public class ReverseDefault extends Algorithm{
         Afstand = Afstand + Math.sqrt((x * x) + (y * y));
         return Afstand;
     }
-    
+
     @Override
     public Result run(ArrayList<Product> P) {
-        
+
         // Rekentijd bijhouden
         long startTime = System.nanoTime();
-        
+
         Products = (ArrayList<Product>) P.clone();
         Route.clear();
-        
+
         // Lijst omdraaien
-        int aantal = Products.size()-1;
-        for(int i = 0; i <= aantal;){
+        int aantal = Products.size() - 1;
+        for (int i = 0; i <= aantal;) {
             Route.add(Products.get(aantal));
             aantal--;
         }
-        
+
         afstand = this.BerekenAfstand(Route);
         Rekentijd = System.nanoTime() - startTime;
         return new Result((ArrayList<Product>) Route.clone(), afstand, Rekentijd, "Reverse");
     }
-    
+
 }

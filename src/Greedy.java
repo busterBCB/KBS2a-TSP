@@ -6,8 +6,6 @@ public class Greedy extends Algorithm {
 
     private ArrayList<Product> Products;
     public ArrayList<Product> Route = new ArrayList<Product>(25);
-    private Product laatste;
-    private double afstand;
     private long Rekentijd;
 
     public Greedy() {

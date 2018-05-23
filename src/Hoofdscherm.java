@@ -22,10 +22,8 @@ public class Hoofdscherm extends JFrame implements ActionListener {
     private ProductList List = new ProductList();
     private JList<Algorithm> lstAlgorithm;
     private ArrayList<Algorithm> algorithms;
-    private JSpinner sprAantalP;
-    private JSpinner sprAantalR;
-    private JTextPane activeResultLog;
-    private JTextPane resultLog;
+    private JSpinner sprAantalP, sprAantalR;
+    private JTextPane activeResultLog, resultLog;
     private Result R;
     private Tekenpanel TekenPanel = new Tekenpanel();
     private JPanel mainPanel = new JPanel();
@@ -37,7 +35,7 @@ public class Hoofdscherm extends JFrame implements ActionListener {
 
     public Hoofdscherm() {
         int width = 680 / 2 - 30;
-        setTitle("TSP");
+        setTitle("TSP - Simulator");
         setSize(680, 680);
         setLayout(new GridLayout(2, 2));
         mainPanel.setLayout(new FlowLayout());
@@ -66,7 +64,7 @@ public class Hoofdscherm extends JFrame implements ActionListener {
         mainPanel.add(sprAantalP);
 
         mainPanel.add(new JLabel("Aantal Rondes:"));
-        sprAantalR = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
+        sprAantalR = new JSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
         mainPanel.add(sprAantalR);
 
         btnStart = new JButton("Start");
@@ -103,6 +101,22 @@ public class Hoofdscherm extends JFrame implements ActionListener {
                 + "Bereken tijd: %fs\n"
                 + "Afstand: %.5f", specific.getAlgorithm(), RekenTijd, specific.getAfstand()
         ));
+
+        // beste van die ronde weergeven
+        Result bestResult = RS.getBest(Ronde);
+        double RekenTijd2 = bestResult.getRekentijd() / 1000000000.0;
+        //System.out.println("bestResultRonde" + bestResult);
+        resultLog.setText(String.format(
+                "Kortste Route:\n\n"
+                + "Algoritme: %s\n"
+                + "Bereken tijd: %fs\n"
+                + "Afstand: %.5f\n\n\n"
+                + "Aantal rondes gewonnen: \n\n"
+                + "Greedy: %s\n"
+                + "LimitedBruteForce: %s\n"
+                + "2-opt: %s\n"
+                + "Reverse: %s", bestResult.getAlgorithm(), RekenTijd2, bestResult.getAfstand(), RS.getWins("Greedy"), RS.getWins("LimitedBruteForce"), RS.getWins("2-opt"), RS.getWins("Reverse")
+        ));
         TekenPanel.setResult(specific);
         repaint();
     }
@@ -117,17 +131,18 @@ public class Hoofdscherm extends JFrame implements ActionListener {
                 Ronde.clear();
                 // willekeurige lijst 
                 List.RandomSet((int) sprAantalP.getValue());
-                
+
                 for (Algorithm algorithm : lstAlgorithm.getSelectedValuesList()) {
                     R = algorithm.run(List.getList());
                     Ronde.add(R);
                 }
                 RS.addResult(Ronde);
             }
+            // alle rondes met algoritmes printen
             System.out.println(RS);
             //System.out.println("BestResult" + BestResult);
-            
-            // beste resultaat weergeven
+
+            // beste resultaat weergeven in de log
             Result bestResult = RS.getBest();
             TekenPanel.setResult(bestResult);
             double RekenTijd = bestResult.getRekentijd() / 1000000000.0;
@@ -136,7 +151,12 @@ public class Hoofdscherm extends JFrame implements ActionListener {
                     "Kortste Route:\n\n"
                     + "Algoritme: %s\n"
                     + "Bereken tijd: %fs\n"
-                    + "Afstand: %.5f", bestResult.getAlgorithm(), RekenTijd, bestResult.getAfstand()
+                    + "Afstand: %.5f\n\n\n"
+                    + "Aantal rondes gewonnen: \n\n"
+                    + "Greedy: %s\n"
+                    + "LimitedBruteForce: %s\n"
+                    + "2-opt: %s\n"
+                    + "Reverse: %s", bestResult.getAlgorithm(), RekenTijd, bestResult.getAfstand(), RS.getWins("Greedy"), RS.getWins("LimitedBruteForce"), RS.getWins("2-opt"), RS.getWins("Reverse")
             ));
             //activeResultLog leeg halen na nieuwe start
             activeResultLog.setText(String.format(
