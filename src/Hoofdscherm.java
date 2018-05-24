@@ -40,7 +40,6 @@ public class Hoofdscherm extends JFrame implements ActionListener {
         setLayout(new GridLayout(2, 2));
         mainPanel.setLayout(new FlowLayout());
         Font font = new Font("Courier", Font.BOLD, 16);
-        //setPreferredSize(new Dimension(width, 300));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         algorithms = new ArrayList<>();
